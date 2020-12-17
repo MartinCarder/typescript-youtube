@@ -21,7 +21,7 @@ const fetchSearch = async (searchTerm: string) => {
     method: "get",
   });
 
-  if (request.status !== 2089)
+  if (request.status !== 200)
     throw new Error(`Error status code ${request.status}`);
 
   const data = await request.json();

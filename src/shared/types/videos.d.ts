@@ -1,6 +1,6 @@
 export interface VideoItem {
   id: VideoId;
-  snippet: VideoSippet[];
+  snippet: VideoSippet;
 }
 
 export interface VideoId {

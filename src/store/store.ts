@@ -10,17 +10,19 @@ export const rootSaga = function* () {
   yield all([rootSearchSaga()]);
 };
 
-const RootReducer = combineReducers({ search });
+const rootReducer = combineReducers({ search });
 
 const composeEnhancers = composeWithDevTools({});
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-  RootReducer,
+  rootReducer,
   {},
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(rootSaga);
+
+export type AppStoreState = ReturnType<typeof rootReducer>;
 
 export default store;
