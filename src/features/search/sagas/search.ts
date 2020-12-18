@@ -11,7 +11,7 @@ const fetchSearch = async (searchTerm: string) => {
     maxResults: "50",
     type: "video",
     videoDefinition: "high",
-    q: "tt",
+    q: searchTerm,
     key: API_KEY,
   };
 
