@@ -1,6 +1,7 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 import { getType, ActionType } from "typesafe-actions";
 import { onRequestSearch } from "../actions/search";
+import { getRequest } from "shared/utils/apiRequest";
 
 const API_KEY = "AIzaSyBbgYGslTSXbBK0ZrMMVWbqjQl7FfwprJs";
 const SEARCH_END_POINT = "https://youtube.googleapis.com/youtube/v3/search";
@@ -12,7 +13,6 @@ const fetchSearch = async (searchTerm: string) => {
     type: "video",
     videoDefinition: "high",
     q: searchTerm,
-    key: API_KEY,
   };
 
   const qs = new URLSearchParams(query);
@@ -32,11 +32,18 @@ const fetchSearch = async (searchTerm: string) => {
 export function* getSearchResults(
   action: ActionType<typeof onRequestSearch.request>
 ) {
+  const query = {
+    part: "snippet",
+    maxResults: "50",
+    type: "video",
+    videoDefinition: "high",
+    q: action.payload,
+  };
   try {
-    const data = yield call(fetchSearch, action.payload);
+    const data = yield call(getRequest, "search", query);
     yield put(onRequestSearch.success(data));
   } catch (error) {
-    yield put(onRequestSearch.failure(error));
+    yield put(onRequestSearch.failure(error.toString()));
   }
 }
 
