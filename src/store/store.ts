@@ -3,8 +3,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
-import rootSearchSaga from "../features/search/sagas/search";
-import search from "../features/search/reducers/search";
+import rootSearchSaga from "../features/search/redux/sagas/search";
+import search from "../features/search/redux/search";
 
 export const rootSaga = function* () {
   yield all([rootSearchSaga()]);

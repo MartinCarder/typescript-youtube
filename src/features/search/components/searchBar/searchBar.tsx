@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { onRequestSearch } from "../redux/search";
+import { onRequestSearch } from "../../redux/search";
 
 export const SearchBar: React.FC = () => {
   const dispatch = useDispatch();

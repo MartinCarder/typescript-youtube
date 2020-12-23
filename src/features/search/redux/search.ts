@@ -1,13 +1,19 @@
-import { onRequestSearch, SearchActions } from "../actions/search";
-import { getType } from "typesafe-actions";
+import { ActionType, createAsyncAction } from "typesafe-actions";
 import { VideoItem } from "shared/types/videos";
+import { getType } from "typesafe-actions";
+import { ApiStatus } from "shared/types/api.d";
 
-enum ApiStatus {
-  STATUS_INIT = "STATUS_INIT",
-  STATUS_ERROR = "STATUS_ERROR",
-  STATUS_LOADED = "STATUS_LOADED",
-  STATUS_LOADING = "STATUS_LOADING",
+export interface VideoResults {
+  items: VideoItem[];
 }
+
+export const onRequestSearch = createAsyncAction(
+  "SEARCH_REULTS/GET_SEARCH",
+  "SEARCH_REULTS/GET_SEARCH_SUCCESS",
+  "SEARCH_REULTS/GET_SEARCH_FAILURE"
+)<string, VideoResults, any>();
+
+export type SearchActions = ActionType<typeof onRequestSearch>;
 
 export interface SearchState {
   status: ApiStatus;
@@ -24,7 +30,7 @@ export const initialState: SearchState = {
   pagination: {},
   errorMessage: undefined,
 };
-const store = (
+const reducer = (
   state: SearchState = initialState,
   action: SearchActions
 ): SearchState => {
@@ -51,4 +57,4 @@ const store = (
   }
 };
 
-export default store;
+export default reducer;

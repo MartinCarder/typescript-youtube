@@ -1,6 +1,6 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 import { getType, ActionType } from "typesafe-actions";
-import { onRequestSearch } from "../actions/search";
+import { onRequestSearch } from "../search";
 import { getRequest } from "shared/utils/apiRequest";
 
 const API_KEY = "AIzaSyBbgYGslTSXbBK0ZrMMVWbqjQl7FfwprJs";
