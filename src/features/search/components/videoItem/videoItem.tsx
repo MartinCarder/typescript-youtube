@@ -6,22 +6,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-    },
-    content: {
-      flex: 1,
-      display: "flex",
-    },
-    date: {},
-  })
-);
+import { useVideoItemStyles } from "./videoItems.styles";
 
 dayjs.extend(relativeTime);
 export interface VideoItemProps {
@@ -39,7 +24,7 @@ export const VideoItem: React.FC<VideoItemProps> = ({
   videoChannel,
   videoPublished,
 }) => {
-  const classes = useStyles();
+  const classes = useVideoItemStyles();
   const publishedFomrated = dayjs(videoPublished);
   return (
     <Card className={classes.root}>
@@ -77,13 +62,20 @@ export const VideoItem: React.FC<VideoItemProps> = ({
               color="textSecondary"
               gutterBottom
               component="p"
+              data-testid="videoItemDescription"
             >
               {videDescription}
             </Typography>
           </Grid>
-          <Grid item container alignItems="flex-end" justify="flex-end">
+          <Grid
+            item
+            container
+            alignItems="flex-end"
+            justify="flex-end"
+            className={classes.date}
+          >
             {publishedFomrated.isValid() && (
-              <Typography variant="body2">
+              <Typography variant="body2" data-testid="videoItemPublished">
                 {publishedFomrated.fromNow()}
               </Typography>
             )}
