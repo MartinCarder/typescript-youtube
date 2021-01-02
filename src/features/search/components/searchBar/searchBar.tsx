@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 import { useHistory, useLocation } from "react-router-dom";
 import { onRequestSearch } from "../../redux/search";
 
@@ -13,7 +15,6 @@ export const SearchBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState(searchTerm);
 
   useEffect(() => {
-    console.log("effect");
     if (searchTerm) dispatch(onRequestSearch.request(searchTerm));
   }, [searchTerm, dispatch]);
 
@@ -21,13 +22,17 @@ export const SearchBar: React.FC = () => {
     history.push(`/?search=${encodeURIComponent(searchValue)}`);
   };
   return (
-    <div data-testid="searchBar">
-      <input
-        type="text"
-        value={searchValue}
-        onChange={(ev) => setSearchValue(ev.target.value)}
-      />
-      <button onClick={search}>Search</button>
-    </div>
+    <AppBar position="sticky">
+      <Toolbar>
+        <div data-testid="searchBar">
+          <input
+            type="text"
+            value={searchValue}
+            onChange={(ev) => setSearchValue(ev.target.value)}
+          />
+          <button onClick={search}>Search</button>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
