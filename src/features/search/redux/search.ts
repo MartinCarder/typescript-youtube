@@ -1,19 +1,10 @@
-import { ActionType, createAsyncAction } from "typesafe-actions";
 import { VideoItem } from "shared/types/videos";
-import { getType } from "typesafe-actions";
 import { ApiStatus } from "shared/types/api.d";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface VideoResults {
   items: VideoItem[];
 }
-
-export const onRequestSearch = createAsyncAction(
-  "SEARCH_REULTS/GET_SEARCH",
-  "SEARCH_REULTS/GET_SEARCH_SUCCESS",
-  "SEARCH_REULTS/GET_SEARCH_FAILURE"
-)<string, VideoResults, any>();
-
-export type SearchActions = ActionType<typeof onRequestSearch>;
 
 export interface SearchState {
   status: ApiStatus;
@@ -30,31 +21,26 @@ export const initialState: SearchState = {
   pagination: {},
   errorMessage: undefined,
 };
-const reducer = (
-  state: SearchState = initialState,
-  action: SearchActions
-): SearchState => {
-  switch (action.type) {
-    case getType(onRequestSearch.failure):
-      return {
-        ...initialState,
-        status: ApiStatus.STATUS_ERROR,
-        errorMessage: action.payload,
-      };
-    case getType(onRequestSearch.request):
-      return {
-        ...initialState,
-        status: ApiStatus.STATUS_LOADING,
-      };
-    case getType(onRequestSearch.success):
-      return {
-        ...state,
-        status: ApiStatus.STATUS_LOADED,
-        results: action.payload.items,
-      };
-    default:
-      return state;
-  }
-};
 
-export default reducer;
+const searchSlice = createSlice({
+  name: "videoSearch",
+  initialState,
+  reducers: {
+    success: (state, action: PayloadAction<VideoResults>) => {
+      state.status = ApiStatus.STATUS_LOADED;
+      state.results = action.payload.items;
+    },
+    request: (state, action: PayloadAction<string>) => {
+      state.status = ApiStatus.STATUS_LOADING;
+      state.results = [];
+    },
+    failure: (state, action: PayloadAction<any>) => {
+      state.status = ApiStatus.STATUS_ERROR;
+      state.errorMessage = action.payload;
+    },
+  },
+});
+
+export const onRequestSearch = searchSlice.actions;
+
+export default searchSlice.reducer;

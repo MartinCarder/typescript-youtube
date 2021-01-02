@@ -1,5 +1,4 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
@@ -11,15 +10,13 @@ export const rootSaga = function* () {
 };
 
 const rootReducer = combineReducers({ search });
-
-const composeEnhancers = composeWithDevTools({});
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
-  rootReducer,
-  {},
-  composeEnhancers(applyMiddleware(sagaMiddleware))
-);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sagaMiddleware),
+});
 
 sagaMiddleware.run(rootSaga);
 
