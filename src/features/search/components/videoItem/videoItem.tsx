@@ -6,7 +6,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Grid from "@material-ui/core/Grid";
-import { useVideoItemStyles } from "./videoItems.styles";
+import { useVideoItemStyles } from "./videoItem.styles";
 
 dayjs.extend(relativeTime);
 export interface VideoItemProps {
@@ -34,6 +34,7 @@ export const VideoItem: React.FC<VideoItemProps> = ({
           title={videoTitle}
           height="auto"
           component="img"
+          data-testid="videoItemImg"
         />
       </div>
 
@@ -49,7 +50,11 @@ export const VideoItem: React.FC<VideoItemProps> = ({
             >
               {videoTitle}
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography
+              variant="body2"
+              gutterBottom
+              data-testid="videoItemChannel"
+            >
               {videoChannel}
             </Typography>
             <Typography

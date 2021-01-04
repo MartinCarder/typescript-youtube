@@ -11,7 +11,7 @@ export const videoThumbs = {
 };
 
 export const videoSnipt1 = {
-  publishedAt: "5433553434345",
+  publishedAt: "2020-12-31T11:30:00Z",
   channelId: "1",
   title: "Test video 1",
   description: "Video one description",
@@ -20,7 +20,7 @@ export const videoSnipt1 = {
 };
 
 export const videoSnipt2 = {
-  publishedAt: "5433553434345454",
+  publishedAt: "2021-01-04T11:30:00Z",
   channelId: "1",
   title: "Test video 2",
   description: "Video two description",
