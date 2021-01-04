@@ -38,13 +38,8 @@ export const VideoItem: React.FC<VideoItemProps> = ({
       </div>
 
       <CardContent className={classes.content}>
-        <Grid
-          container
-          direction="column"
-          justify="flex-start"
-          alignItems="flex-start"
-        >
-          <Grid item>
+        <Grid container>
+          <Grid item zeroMinWidth>
             <Typography
               gutterBottom
               variant="h5"

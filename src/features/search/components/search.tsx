@@ -15,13 +15,7 @@ export const Search: React.FC = () => {
       <Container>
         <Grid container spacing={3} alignItems="stretch" direction="row">
           {results.map((result) => (
-            <Grid
-              item
-              container
-              xs={4}
-              key={result.id.videoId}
-              direction="column"
-            >
+            <Grid item container xs={4} key={result.id.videoId}>
               <VideoItem
                 videoTitle={result.snippet.title}
                 videoImage={result.snippet.thumbnails.high.url}
