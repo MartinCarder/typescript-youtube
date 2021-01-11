@@ -9,7 +9,7 @@ export const rootSaga = function* () {
   yield all([rootSearchSaga()]);
 };
 
-const rootReducer = combineReducers({ search });
+export const rootReducer = combineReducers({ search, search2: search });
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({

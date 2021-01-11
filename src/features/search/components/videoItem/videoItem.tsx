@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { useVideoItemStyles } from "./videoItem.styles";
 
 dayjs.extend(relativeTime);
+
 export interface VideoItemProps {
   videoTitle: string;
   videoImage: string;
@@ -26,6 +27,7 @@ export const VideoItem: React.FC<VideoItemProps> = ({
 }) => {
   const classes = useVideoItemStyles();
   const publishedFomrated = dayjs(videoPublished);
+
   return (
     <Card className={classes.root}>
       <div>
