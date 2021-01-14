@@ -10,7 +10,6 @@ import {
 import { SearchBar } from "./searchBar/searchBar";
 import { VideoItem } from "./videoItem/videoItem";
 import { LoadingIndicator } from "shared/components/loadinIndicator/loadingIndicator";
-import { ApiStatus } from "shared/types/api.d";
 
 export const Search: React.FC = () => {
   const results = useSelector(getSearchResults);
@@ -24,7 +23,13 @@ export const Search: React.FC = () => {
         <LoadingIndicator status={status} errorMessage={errorMessage}>
           <Grid container spacing={3} alignItems="stretch" direction="row">
             {results.map((result) => (
-              <Grid item container xs={4} key={result.id.videoId}>
+              <Grid
+                item
+                container
+                xs={4}
+                key={result.id.videoId}
+                data-testid="result-item"
+              >
                 <VideoItem
                   videoTitle={result.snippet.title}
                   videoImage={result.snippet.thumbnails.high.url}

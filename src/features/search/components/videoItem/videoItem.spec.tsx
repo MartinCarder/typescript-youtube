@@ -18,34 +18,34 @@ describe("VideoItem", () => {
       />
     );
 
-  it("Displays image", async () => {
+  it("Displays image", () => {
     const result = buildVideoItem();
-    const videoImg = await result.findByTestId("videoItemImg");
+    const videoImg = result.getByTestId("videoItemImg");
     expect(videoImg.getAttribute("src")).toEqual(snippet.thumbnails.high.url);
   });
 
-  it("Displays Title", async () => {
+  it("Displays Title", () => {
     const result = buildVideoItem();
-    const title = await result.findByTestId("videoItemTitle");
+    const title = result.getByTestId("videoItemTitle");
     expect(title).toHaveTextContent(snippet.title);
   });
 
-  it("Displays description", async () => {
+  it("Displays description", () => {
     const result = buildVideoItem();
-    const description = await result.findByTestId("videoItemDescription");
+    const description = result.getByTestId("videoItemDescription");
     expect(description).toHaveTextContent(snippet.description);
   });
 
-  it("Displays channel", async () => {
+  it("Displays channel", () => {
     const result = buildVideoItem();
-    const channel = await result.findByTestId("videoItemChannel");
+    const channel = result.getByTestId("videoItemChannel");
     expect(channel).toHaveTextContent(snippet.channelTitle);
   });
 
-  it("Displays published date", async () => {
+  it("Displays published date", () => {
     MockDate.set("2021-01-02T11:30:00Z");
     const result = buildVideoItem();
-    const published = await result.findByTestId("videoItemPublished");
+    const published = result.getByTestId("videoItemPublished");
     expect(published).toHaveTextContent("2 days ago");
   });
 
