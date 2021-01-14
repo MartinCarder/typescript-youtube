@@ -9,7 +9,7 @@ import {
 } from "../redux/selectors/";
 import { SearchBar } from "./searchBar/searchBar";
 import { VideoItem } from "./videoItem/videoItem";
-import { LoadingIndicator } from "shared/components/loadinIndicator/loadingIndicator";
+import { LoadingIndicator } from "shared/components/loadingIndicator/loadingIndicator";
 
 export const Search: React.FC = () => {
   const results = useSelector(getSearchResults);
