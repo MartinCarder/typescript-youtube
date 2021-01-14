@@ -16,8 +16,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
   errorMessage = "Error",
 }) => {
   const classes = useLoadingIndicatorStyles();
-  const isLoading =
-    status === ApiStatus.STATUS_INIT || status === ApiStatus.STATUS_LOADING;
+  const isLoading = status === ApiStatus.STATUS_LOADING;
   const isError = status === ApiStatus.STATUS_ERROR;
 
   let display = children;

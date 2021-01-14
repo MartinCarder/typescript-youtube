@@ -20,18 +20,18 @@ describe("LoadingIndicator", () => {
     expect(wrapper.queryByTestId("test-children")).not.toBeInTheDocument();
   });
 
-  it("displays loading and no other status when set to init", () => {
+  it("displays loaded and no other status when set to init", () => {
     const wrapper = render(
       <LoadingIndicator status={ApiStatus.STATUS_INIT}>
         <Children />
       </LoadingIndicator>
     );
 
-    expect(wrapper.getByTestId("loading-indicator")).toBeInTheDocument();
+    expect(wrapper.getByTestId("test-children")).toBeInTheDocument();
 
     expect(wrapper.queryByTestId("error-message")).not.toBeInTheDocument();
 
-    expect(wrapper.queryByTestId("test-children")).not.toBeInTheDocument();
+    expect(wrapper.queryByTestId("loading-indicator")).not.toBeInTheDocument();
   });
 
   it("displays loaded and no other status when set to loaded", () => {
