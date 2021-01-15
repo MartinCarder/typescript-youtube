@@ -28,6 +28,7 @@ export const render = (
     ...renderOptions
   }: Omit<RenderOptions, "queries"> & customoptions = {}
 ) => {
+  const dispatchSpy = jest.spyOn(store, "dispatch");
   const Wrapper: React.FC<WrapperProps> = ({ children }) => {
     return (
       <Provider store={store}>
@@ -44,5 +45,6 @@ export const render = (
     }),
     history,
     store,
+    dispatchSpy,
   };
 };

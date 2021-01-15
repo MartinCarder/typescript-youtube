@@ -29,6 +29,8 @@ export const SearchBar: React.FC = () => {
             type="text"
             value={searchValue}
             onChange={(ev) => setSearchValue(ev.target.value)}
+            placeholder="Search Youtube"
+            aria-label="Search Youtube"
           />
           <button onClick={search}>Search</button>
         </div>
