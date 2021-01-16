@@ -1,7 +1,16 @@
 import React from "react";
-import Search from "./features/search";
+import { Switch } from "react-router-dom";
+import { routes } from "routing/routes";
+import { RouteWithSubRoutes } from "shared/components/routeWithSubRoutes/routeWithSubRoutes";
+
 function App() {
-  return <Search />;
+  return (
+    <Switch>
+      {routes.map((route, i) => (
+        <RouteWithSubRoutes key={route.path} {...route} />
+      ))}
+    </Switch>
+  );
 }
 
 export default App;
