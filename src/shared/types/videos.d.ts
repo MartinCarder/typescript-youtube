@@ -28,3 +28,17 @@ export interface videoThumbnail {
   width: number;
   height: number;
 }
+
+export interface VideoStatistics {
+  viewCount: string;
+  likeCount: string;
+  dislikeCount: string;
+}
+
+export interface VideoRequest {
+  id: string;
+  snippet: VideoSippet;
+  statistics: VideoStatistics;
+}
+
+type Video = VideoStatistics & Omit<VideoSippet, "thumbnails">;

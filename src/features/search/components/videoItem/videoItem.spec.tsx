@@ -1,11 +1,11 @@
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import React from "react";
 import MockDate from "mockdate";
 import { VideoItem } from "./videoItem";
 import { SearchVideoItem1 } from "mocks/search/searchMocks";
 
 describe("VideoItem", () => {
-  const { snippet } = SearchVideoItem1;
+  const { snippet, id } = SearchVideoItem1;
 
   const buildVideoItem = () =>
     render(
@@ -15,6 +15,8 @@ describe("VideoItem", () => {
         videDescription={snippet.description}
         videoChannel={snippet.channelTitle}
         videoPublished={snippet.publishedAt}
+        videoId={id.videoId}
+        onSelection={jest.fn()}
       />
     );
 
@@ -57,10 +59,31 @@ describe("VideoItem", () => {
         videDescription={snippet.description}
         videoChannel={snippet.channelTitle}
         videoPublished={"abc"}
+        videoId={id.videoId}
+        onSelection={jest.fn()}
       />
     );
 
     const published = result.queryByTestId("videoItemPublished");
     expect(published).toBeNull();
+  });
+
+  it("Fires onSelection callback on click with correct video id", () => {
+    const onSelectionMock = jest.fn();
+    const result = render(
+      <VideoItem
+        videoTitle={snippet.title}
+        videoImage={snippet.thumbnails.high.url}
+        videDescription={snippet.description}
+        videoChannel={snippet.channelTitle}
+        videoPublished={"abc"}
+        videoId={id.videoId}
+        onSelection={onSelectionMock}
+      />
+    );
+
+    fireEvent.click(result.getByTestId("videoItemImg"));
+
+    expect(onSelectionMock).nthCalledWith(1, id.videoId);
   });
 });

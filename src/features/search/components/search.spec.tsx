@@ -1,5 +1,5 @@
 import React from "react";
-import { within } from "@testing-library/react";
+import { within, fireEvent } from "@testing-library/react";
 import MockDate from "mockdate";
 import { render } from "testHelps";
 import { ApiStatus } from "shared/types/api.d";
@@ -49,5 +49,19 @@ describe("Search", () => {
 
     const published = within(secondVideoItem).getByTestId("videoItemPublished");
     expect(published).toHaveTextContent("2 days ago");
+  });
+
+  it("Selecting video item updates app route with correct id", () => {
+    const { id } = SearchVideoItem2;
+    const result = render(<Search />, {
+      initalState: { search: stateWithResults },
+    });
+
+    const secondVideoItem = result.getAllByTestId("result-item")[1];
+
+    fireEvent.click(within(secondVideoItem).getByRole("button"));
+
+    const { location } = result.history;
+    expect(location.pathname).toEqual(`/video/${id.videoId}`);
   });
 });

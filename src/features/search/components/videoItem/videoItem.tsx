@@ -17,6 +17,8 @@ export interface VideoItemProps {
   videDescription: string;
   videoChannel: string;
   videoPublished: string;
+  videoId: string;
+  onSelection(id: string): void;
 }
 
 export const VideoItem: React.FC<VideoItemProps> = ({
@@ -25,13 +27,15 @@ export const VideoItem: React.FC<VideoItemProps> = ({
   videDescription,
   videoChannel,
   videoPublished,
+  videoId,
+  onSelection,
 }) => {
   const classes = useVideoItemStyles();
   const publishedFomrated = dayjs(videoPublished);
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => onSelection(videoId)}>
         <div>
           <CardMedia
             image={videoImage}
@@ -41,7 +45,6 @@ export const VideoItem: React.FC<VideoItemProps> = ({
             data-testid="videoItemImg"
           />
         </div>
-
         <CardContent className={classes.content}>
           <Grid container>
             <Grid item zeroMinWidth>

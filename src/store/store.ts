@@ -3,13 +3,15 @@ import createSagaMiddleware from "redux-saga";
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import rootSearchSaga from "../features/search/redux/sagas/search";
+import rootVideoSaga from "../features/videoDetails/redux/sagas/video";
 import search from "../features/search/redux/search";
+import videoDetails from "features/videoDetails/redux/videoDetailsSlice";
 
 export const rootSaga = function* () {
-  yield all([rootSearchSaga()]);
+  yield all([rootSearchSaga(), rootVideoSaga()]);
 };
 
-export const rootReducer = combineReducers({ search, search2: search });
+export const rootReducer = combineReducers({ search, videoDetails });
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({

@@ -7,7 +7,7 @@ describe("get request", () => {
     fetchMock.mockOnce(JSON.stringify(mockData));
     const api = "temp";
     const query = { param: "1", test: "2" };
-    getRequest(api, query);
+    getRequest(api, new URLSearchParams(query));
 
     const qs = new URLSearchParams({
       ...query,
@@ -24,7 +24,7 @@ describe("get request", () => {
 
   it("Returns JSON on successful api call", async () => {
     fetchMock.mockOnce(JSON.stringify(mockData));
-    const responce = await getRequest("temp", { param: "1" });
+    const responce = await getRequest("temp");
     expect(responce).toEqual(mockData);
   });
 
@@ -32,7 +32,7 @@ describe("get request", () => {
     const error = new Error("oh no!");
     fetchMock.mockRejectOnce(error);
 
-    const mock = async () => getRequest("temp", { param: "1" });
+    const mock = async () => getRequest("temp");
 
     await expect(mock).rejects.toThrow(error);
   });
@@ -42,7 +42,7 @@ describe("get request", () => {
     const error = `Error status code ${status}`;
     fetchMock.mockOnce(JSON.stringify(mockData), { status });
 
-    const mock = async () => getRequest("temp", { param: "1" });
+    const mock = async () => getRequest("temp");
 
     await expect(mock).rejects.toThrow(error);
   });

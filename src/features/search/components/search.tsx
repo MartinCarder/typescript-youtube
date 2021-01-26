@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import {
@@ -15,6 +16,9 @@ export const Search: React.FC = () => {
   const results = useSelector(getSearchResults);
   const status = useSelector(getSearchStatus);
   const errorMessage = useSelector(getSearchErrorMessage);
+  const history = useHistory();
+
+  const viewVideo = (id: string) => history.push(`/video/${id}`);
 
   return (
     <>
@@ -36,6 +40,8 @@ export const Search: React.FC = () => {
                   videDescription={result.snippet.description}
                   videoChannel={result.snippet.channelTitle}
                   videoPublished={result.snippet.publishedAt}
+                  videoId={result.id.videoId}
+                  onSelection={viewVideo}
                 />
               </Grid>
             ))}

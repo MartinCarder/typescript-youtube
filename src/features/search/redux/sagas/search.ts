@@ -5,13 +5,14 @@ import { getRequest } from "shared/utils/apiRequest";
 export function* getSearchResults(
   action: ReturnType<typeof onRequestSearch.request>
 ) {
-  const query = {
+  const query = new URLSearchParams({
     part: "snippet",
     maxResults: "50",
     type: "video",
     videoDefinition: "high",
     q: action.payload,
-  };
+  });
+
   try {
     const data = yield call(getRequest, "search", query);
     yield put(onRequestSearch.success(data));
