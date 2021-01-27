@@ -8,3 +8,6 @@ export const getVideoDetailsId = (state: AppStoreState) =>
 
 export const getVideoDetails = (state: AppStoreState) =>
   state.videoDetails.details;
+
+export const getVideoDetailsError = (state: AppStoreState) =>
+  state.videoDetails.errorMessage;
