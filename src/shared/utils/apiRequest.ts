@@ -2,7 +2,7 @@ export const getRequest = async (
   api: string,
   query: URLSearchParams = new URLSearchParams()
 ) => {
-  query.append("key", process.env.REACT_APP_YOUTUBE_API_KEY || "");
+  query.set("key", process.env.REACT_APP_YOUTUBE_API_KEY || "");
 
   const request = await fetch(
     `${process.env.REACT_APP_YOUTUBE_SEARCH_ENDPOINT}${api}?${query}`,
