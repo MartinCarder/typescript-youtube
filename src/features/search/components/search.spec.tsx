@@ -11,7 +11,9 @@ describe("Search", () => {
   const stateWithResults = {
     ...searchInitialState,
     status: ApiStatus.STATUS_LOADED,
-    results: [SearchVideoItem1, SearchVideoItem2],
+    data: {
+      results: [SearchVideoItem1, SearchVideoItem2],
+    },
   };
 
   it("displays correct number of serch items", () => {

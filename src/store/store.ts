@@ -8,7 +8,7 @@ import search from "../features/search/redux/search";
 import videoDetails from "features/videoDetails/redux/videoDetailsSlice";
 
 export const rootSaga = function* () {
-  yield all([rootSearchSaga(), rootVideoSaga()]);
+  yield all([rootVideoSaga(), rootSearchSaga()]);
 };
 
 export const rootReducer = combineReducers({ search, videoDetails });

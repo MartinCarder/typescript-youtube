@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { useHistory, useLocation } from "react-router-dom";
-import { onRequestSearch } from "../../redux/search";
+import { videoSearchActions } from "../../redux/search";
 
 export const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const SearchBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState(searchTerm);
 
   useEffect(() => {
-    if (searchTerm) dispatch(onRequestSearch.request(searchTerm));
+    if (searchTerm) dispatch(videoSearchActions.request(searchTerm));
   }, [searchTerm, dispatch]);
 
   const search = () => {

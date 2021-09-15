@@ -4,7 +4,7 @@ import { throwError } from "redux-saga-test-plan/providers";
 import { getRequest } from "shared/utils/apiRequest";
 import { SearchVideoItem1, SearchVideoItem2 } from "mocks/search/searchMocks";
 import searchRoot from "./search";
-import { onRequestSearch } from "../search";
+import { videoSearchActions } from "../search";
 
 describe("Search saga", () => {
   const searchTerm = "videos about react";
@@ -16,8 +16,8 @@ describe("Search saga", () => {
     return expectSaga(searchRoot)
       .provide([[matchers.call.fn(getRequest), results]])
 
-      .put(onRequestSearch.success(results))
-      .dispatch(onRequestSearch.request(searchTerm))
+      .put(videoSearchActions.success(results))
+      .dispatch(videoSearchActions.request(searchTerm))
       .silentRun();
   });
 
@@ -28,8 +28,8 @@ describe("Search saga", () => {
     return expectSaga(searchRoot)
       .provide([[matchers.call.fn(getRequest), throwError(error)]])
 
-      .put(onRequestSearch.failure(error.toString()))
-      .dispatch(onRequestSearch.request(searchTerm))
+      .put(videoSearchActions.failed())
+      .dispatch(videoSearchActions.request(searchTerm))
       .silentRun();
   });
 });

@@ -1,9 +1,9 @@
 import { call, takeLatest, put } from "redux-saga/effects";
-import { onRequestSearch } from "../search";
 import { getRequest } from "shared/utils/apiRequest";
+import { videoSearchActions } from "features/search/redux/search";
 
 export function* getSearchResults(
-  action: ReturnType<typeof onRequestSearch.request>
+  action: ReturnType<typeof videoSearchActions.request>
 ) {
   const query = new URLSearchParams({
     part: "snippet",
@@ -15,12 +15,12 @@ export function* getSearchResults(
 
   try {
     const data = yield call(getRequest, "search", query);
-    yield put(onRequestSearch.success(data));
+    yield put(videoSearchActions.success(data));
   } catch (error) {
-    yield put(onRequestSearch.failure(error.toString()));
+    yield put(videoSearchActions.failed());
   }
 }
 
 export default function* rootSearchSaga() {
-  yield takeLatest(onRequestSearch.request.type, getSearchResults);
+  yield takeLatest(videoSearchActions.request.type, getSearchResults);
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { render } from "testHelps";
 import { SearchBar } from "./searchBar";
-import { onRequestSearch } from "../../redux/search";
+import { videoSearchActions } from "../../redux/search";
 
 describe("searchBar", () => {
   const searchString = "cars";
@@ -18,7 +18,7 @@ describe("searchBar", () => {
 
     await waitFor(() => {
       expect(result.dispatchSpy).toBeCalledWith(
-        onRequestSearch.request(searchString)
+        videoSearchActions.request(searchString)
       );
     });
   });
@@ -50,7 +50,7 @@ describe("searchBar", () => {
 
     await waitFor(() => {
       expect(result.dispatchSpy).toBeCalledWith(
-        onRequestSearch.request(searchString)
+        videoSearchActions.request(searchString)
       );
     });
   });

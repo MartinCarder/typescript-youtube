@@ -1,7 +1,7 @@
 export const getRequest = async (
   api: string,
   query: URLSearchParams = new URLSearchParams()
-) => {
+): Promise<{ te: string }[]> => {
   query.set("key", process.env.REACT_APP_YOUTUBE_API_KEY || "");
 
   const request = await fetch(
@@ -16,5 +16,5 @@ export const getRequest = async (
 
   const data = await request.json();
 
-  return data;
+  return data as [];
 };

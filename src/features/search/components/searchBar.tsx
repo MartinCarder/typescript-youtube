@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { onRequestSearch } from "../redux/search";
+import { videoSearchActions } from "../redux/search";
 
 export const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
 
-  const search = () => dispatch(onRequestSearch.request(searchValue));
+  const search = () => dispatch(videoSearchActions.request(searchValue));
   return (
     <div data-testid="searchBar">
       <input

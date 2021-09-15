@@ -6,11 +6,12 @@ import {
 } from "./selectors/search";
 import { ApiStatus } from "shared/types/api.d";
 import { SearchVideoItem1, SearchVideoItem2 } from "mocks/search/searchMocks";
+import { initialLoadingState } from "shared/redux/createLoadingStatus";
 
 describe("Search slice", () => {
   it("Load init state by default", () => {
     const searchReducer = reducer(undefined, { type: "" });
-    expect(searchReducer).toEqual(initialState);
+    expect(searchReducer.data).toEqual(initialState);
   });
 
   it("onRequestSearch.failure sets correct status and error message", () => {
@@ -31,7 +32,10 @@ describe("Search slice", () => {
   });
 
   it("onRequestSearch.request sets correct status", () => {
-    const searchReducer = reducer(initialState, onRequestSearch.request(""));
+    const searchReducer = reducer(
+      { ...initialLoadingState, data: initialState },
+      onRequestSearch.request("")
+    );
 
     expect(getSearchStatus({ search: searchReducer })).toEqual(
       ApiStatus.STATUS_LOADING
