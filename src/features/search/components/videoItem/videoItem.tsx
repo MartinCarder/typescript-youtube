@@ -35,7 +35,10 @@ export const VideoItem: React.FC<VideoItemProps> = ({
 
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={() => onSelection(videoId)}>
+      <CardActionArea
+        onClick={() => onSelection(videoId)}
+        className={classes.action}
+      >
         <div>
           <CardMedia
             image={videoImage}
