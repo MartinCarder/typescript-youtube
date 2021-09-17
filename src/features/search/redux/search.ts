@@ -12,16 +12,16 @@ export interface VideoResults {
 export interface SearchState {
   searchTerm: string;
   results: VideoItem[];
-  pagination: {};
+  errorMessage: string | undefined;
 }
 
 export const initialState: SearchState = {
   searchTerm: "",
   results: [],
-  pagination: {},
+  errorMessage: undefined,
 };
 
-export const videoSearchActions = createAsyncActions<string, any>(
+export const videoSearchActions = createAsyncActions<string, any, string>(
   "videoSearch/api"
 );
 
@@ -35,6 +35,12 @@ const searchSlice = createLoadingStatusSlice({
   extraReducers: (builder) => {
     builder.addCase(videoSearchActions.success, (state, action) => {
       state.data.results = action.payload.items;
+    });
+    builder.addCase(videoSearchActions.request, (state, action) => {
+      state.data.searchTerm = action.payload;
+    });
+    builder.addCase(videoSearchActions.failed, (state, action) => {
+      state.data.errorMessage = action.payload;
     });
   },
 });

@@ -1,9 +1,9 @@
 import { call, takeLatest, put } from "redux-saga/effects";
-import { onRequestVideo } from "../videoDetailsSlice";
+import { videoSearchActions } from "../videoDetailsSlice";
 import { getRequest } from "shared/utils/apiRequest";
 
 export function* getVideoResults(
-  action: ReturnType<typeof onRequestVideo.request>
+  action: ReturnType<typeof videoSearchActions.request>
 ) {
   const query = new URLSearchParams({
     id: action.payload,
@@ -17,16 +17,19 @@ export function* getVideoResults(
     if (data.items.length) {
       const { snippet, statistics, id } = data.items[0];
       yield put(
-        onRequestVideo.success({ details: { ...snippet, ...statistics }, id })
+        videoSearchActions.success({
+          details: { ...snippet, ...statistics },
+          id,
+        })
       );
     } else {
       throw new Error("Video not found");
     }
   } catch (error) {
-    yield put(onRequestVideo.failure(error.toString()));
+    yield put(videoSearchActions.failed(error.toString()));
   }
 }
 
 export default function* rootVideoSaga() {
-  yield takeLatest(onRequestVideo.request.type, getVideoResults);
+  yield takeLatest(videoSearchActions.request.type, getVideoResults);
 }

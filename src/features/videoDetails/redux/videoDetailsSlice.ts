@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncActions } from "shared/redux/asyncActionGenarator";
+import {
+  createLoadingStatusSlice,
+  LoadingState,
+} from "shared/redux/createLoadingStatus";
 import { ApiStatus } from "shared/types/api.d";
 import { Video } from "shared/types/videos.d";
 
 export interface VideoDetailsState {
-  status: ApiStatus;
   videoId: string;
   details: Video;
   errorMessage: string | undefined;
@@ -26,33 +30,34 @@ const videoEmpty = {
 };
 
 export const initialState: VideoDetailsState = {
-  status: ApiStatus.STATUS_INIT,
   videoId: "",
   details: videoEmpty,
   errorMessage: undefined,
 };
 
-const videoDetailsSlice = createSlice({
-  name: "videoDetails",
-  initialState,
-  reducers: {
-    success: (state, action: PayloadAction<VideoLoaded>) => {
-      state.status = ApiStatus.STATUS_LOADED;
-      state.details = action.payload.details;
-      state.videoId = action.payload.id;
-    },
-    request: (state, action: PayloadAction<string>) => {
-      state.status = ApiStatus.STATUS_LOADING;
-      state.videoId = action.payload;
-      state.details = videoEmpty;
-    },
-    failure: (state, action: PayloadAction<any>) => {
-      state.status = ApiStatus.STATUS_ERROR;
-      state.errorMessage = action.payload;
-    },
+export const videoSearchActions = createAsyncActions<string, any, string>(
+  "videoDetails/api"
+);
+
+const videoDetailsSlice = createLoadingStatusSlice({
+  name: "videoSearch",
+  initialState: {
+    data: initialState,
+  } as LoadingState<VideoDetailsState>,
+  asyncActions: videoSearchActions,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(videoSearchActions.success, (state, action) => {
+      state.data.details = action.payload.details;
+      state.data.videoId = action.payload.id;
+    });
+    builder.addCase(videoSearchActions.request, (state, action) => {
+      state.data.videoId = action.payload;
+    });
+    builder.addCase(videoSearchActions.failed, (state, action) => {
+      state.data.errorMessage = action.payload;
+    });
   },
 });
-
-export const onRequestVideo = videoDetailsSlice.actions;
 
 export default videoDetailsSlice.reducer;

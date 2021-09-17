@@ -1,4 +1,4 @@
-import reducer, { onRequestSearch, initialState } from "./search";
+import reducer, { videoSearchActions, initialState } from "./search";
 import {
   getSearchStatus,
   getSearchErrorMessage,
@@ -9,6 +9,10 @@ import { SearchVideoItem1, SearchVideoItem2 } from "mocks/search/searchMocks";
 import { initialLoadingState } from "shared/redux/createLoadingStatus";
 
 describe("Search slice", () => {
+  const initState = {
+    data: initialState,
+    ...initialLoadingState,
+  };
   it("Load init state by default", () => {
     const searchReducer = reducer(undefined, { type: "" });
     expect(searchReducer.data).toEqual(initialState);
@@ -18,8 +22,8 @@ describe("Search slice", () => {
     const errorMessage = "Oh no an error!";
 
     const searchReducer = reducer(
-      initialState,
-      onRequestSearch.failure(errorMessage)
+      initState,
+      videoSearchActions.failed(errorMessage)
     );
 
     expect(getSearchStatus({ search: searchReducer })).toEqual(
@@ -32,10 +36,7 @@ describe("Search slice", () => {
   });
 
   it("onRequestSearch.request sets correct status", () => {
-    const searchReducer = reducer(
-      { ...initialLoadingState, data: initialState },
-      onRequestSearch.request("")
-    );
+    const searchReducer = reducer(initState, videoSearchActions.request(""));
 
     expect(getSearchStatus({ search: searchReducer })).toEqual(
       ApiStatus.STATUS_LOADING
@@ -46,8 +47,8 @@ describe("Search slice", () => {
     const searchItems = [SearchVideoItem1, SearchVideoItem2];
 
     const searchReducer = reducer(
-      initialState,
-      onRequestSearch.success({ items: searchItems })
+      initState,
+      videoSearchActions.success({ items: searchItems })
     );
 
     expect(getSearchStatus({ search: searchReducer })).toEqual(

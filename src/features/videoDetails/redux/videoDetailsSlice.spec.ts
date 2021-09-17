@@ -1,4 +1,4 @@
-import reducer, { onRequestVideo, initialState } from "./videoDetailsSlice";
+import reducer, { videoSearchActions, initialState } from "./videoDetailsSlice";
 import { ApiStatus } from "shared/types/api.d";
 import {
   getVideoDetailsStatus,
@@ -7,19 +7,24 @@ import {
   getVideoDetails,
 } from "./selectors/videoDetailsSelectors";
 import { videoDetailsMock } from "mocks/videoDetails/videoMock";
+import { initialLoadingState } from "shared/redux/createLoadingStatus";
 
 describe("videoDetailsSlice", () => {
+  const initState = {
+    data: initialState,
+    ...initialLoadingState,
+  };
   it("Load init state by default", () => {
     const detailsReducer = reducer(undefined, { type: "" });
-    expect(detailsReducer).toEqual(initialState);
+    expect(detailsReducer).toEqual(initState);
   });
 
   it("onRequestVideo.failure sets correct error message and status", () => {
     const errorMessage = "oh no an error!";
 
     const detailsReducer = reducer(
-      initialState,
-      onRequestVideo.failure(errorMessage)
+      initState,
+      videoSearchActions.failed(errorMessage)
     );
 
     expect(getVideoDetailsStatus({ videoDetails: detailsReducer })).toEqual(
@@ -34,8 +39,8 @@ describe("videoDetailsSlice", () => {
   it("onRequestVideo.success sets correct status and adds data to reducer", () => {
     const id = "1234567";
     const detailsReducer = reducer(
-      initialState,
-      onRequestVideo.success({ id, details: videoDetailsMock })
+      initState,
+      videoSearchActions.success({ id, details: videoDetailsMock })
     );
 
     const state = {
@@ -51,7 +56,7 @@ describe("videoDetailsSlice", () => {
 
   it("onRequestVideo.requests sets correct status", () => {
     const id = "1234567";
-    const detailsReducer = reducer(initialState, onRequestVideo.request(id));
+    const detailsReducer = reducer(initState, videoSearchActions.request(id));
 
     const state = {
       videoDetails: detailsReducer,

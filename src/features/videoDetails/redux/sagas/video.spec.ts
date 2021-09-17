@@ -3,7 +3,7 @@ import * as matchers from "redux-saga-test-plan/matchers";
 import { throwError } from "redux-saga-test-plan/providers";
 import { getRequest } from "shared/utils/apiRequest";
 import rootVideoSaga from "./video";
-import { onRequestVideo } from "../videoDetailsSlice";
+import { videoSearchActions } from "../videoDetailsSlice";
 
 describe("video saga", () => {
   const id = "123";
@@ -32,9 +32,12 @@ describe("video saga", () => {
       ])
 
       .put(
-        onRequestVideo.success({ id, details: { ...snippet, ...statistics } })
+        videoSearchActions.success({
+          id,
+          details: { ...snippet, ...statistics },
+        })
       )
-      .dispatch(onRequestVideo.request(id))
+      .dispatch(videoSearchActions.request(id))
       .silentRun();
   });
 
@@ -45,8 +48,8 @@ describe("video saga", () => {
     return expectSaga(rootVideoSaga)
       .provide([[matchers.call.fn(getRequest), throwError(error)]])
 
-      .put(onRequestVideo.failure(error.toString()))
-      .dispatch(onRequestVideo.request(id))
+      .put(videoSearchActions.failed(error.toString()))
+      .dispatch(videoSearchActions.request(id))
       .silentRun();
   });
 });

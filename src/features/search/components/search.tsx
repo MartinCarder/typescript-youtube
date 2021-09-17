@@ -26,7 +26,7 @@ export const Search: React.FC = () => {
       <Container>
         <LoadingIndicator status={status} errorMessage={errorMessage}>
           <Grid container spacing={3} alignItems="stretch" direction="row">
-            {results.map((result: any) => (
+            {results.map((result) => (
               <Grid
                 item
                 container

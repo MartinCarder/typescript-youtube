@@ -6,4 +6,4 @@ export const getSearchResults = (state: AppStoreState) =>
   state.search.data.results;
 
 export const getSearchErrorMessage = (state: AppStoreState) =>
-  state.search.errorMessage;
+  state.search.data.errorMessage;

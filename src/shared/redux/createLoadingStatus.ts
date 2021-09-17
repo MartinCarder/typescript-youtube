@@ -13,12 +13,10 @@ import { AsyncActions } from "shared/redux/asyncActionGenarator";
 export interface LoadingState<T> {
   data: T;
   status: ApiStatus;
-  errorMessage: string | undefined;
 }
 
 export const initialLoadingState = {
   status: ApiStatus.STATUS_INIT,
-  errorMessage: undefined,
 };
 
 export type thunkArgs = {
