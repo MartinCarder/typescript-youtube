@@ -28,7 +28,7 @@ describe("Search saga", () => {
     return expectSaga(searchRoot)
       .provide([[matchers.call.fn(getRequest), throwError(error)]])
 
-      .put(videoSearchActions.failed())
+      .put(videoSearchActions.failed(error.toString()))
       .dispatch(videoSearchActions.request(searchTerm))
       .silentRun();
   });

@@ -1,7 +1,7 @@
 import { render, fireEvent } from "@testing-library/react";
 import React from "react";
 import MockDate from "mockdate";
-import { VideoItem } from "./videoItem";
+import { VideoItem } from "./videoItems";
 import { SearchVideoItem1 } from "mocks/search/searchMocks";
 
 describe("VideoItem", () => {

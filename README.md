@@ -1,9 +1,5 @@
 # WIP React Redux youtube app
 
-Still a work in progress:
-  - Styling not yet completed
-  - Features still being added
-
 Built with:
   - React
   - Redux Toolkit

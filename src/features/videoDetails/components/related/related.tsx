@@ -4,24 +4,22 @@ import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import {
-  getSearchResults,
-  getSearchStatus,
-  getSearchErrorMessage,
-} from "../redux/selectors/";
-import { SearchBar } from "./searchBar/searchBar";
+  getRelatedResults,
+  getRelatedStatus,
+  getRelatedErrorMessage,
+} from "../../redux/selectors/relatedVideosSelector";
 import { VideoItem } from "shared/components/videoItems/videoItems";
 import { LoadingIndicator } from "shared/components/loadingIndicator/loadingIndicator";
 
-export const Search: React.FC = () => {
-  const results = useSelector(getSearchResults);
-  const status = useSelector(getSearchStatus);
-  const errorMessage = useSelector(getSearchErrorMessage);
+export const Related: React.FC = () => {
+  const results = useSelector(getRelatedResults);
+  const status = useSelector(getRelatedStatus);
+  const errorMessage = useSelector(getRelatedErrorMessage);
   const history = useHistory();
 
   const viewVideo = (id: string) => history.push(`/video/${id}`);
   return (
     <>
-      <SearchBar />
       <Container>
         <LoadingIndicator status={status} errorMessage={errorMessage}>
           <Grid container spacing={3} alignItems="stretch" direction="row">

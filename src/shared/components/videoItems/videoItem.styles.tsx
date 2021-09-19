@@ -17,6 +17,7 @@ export const useVideoItemStyles = makeStyles((theme: Theme) =>
     date: {
       flex: 1,
       marginTop: 20,
+      justifyContent: "flex-end",
     },
     action: {
       flex: 1,

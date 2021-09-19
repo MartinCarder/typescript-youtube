@@ -1,6 +1,7 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 import { videoSearchActions } from "../videoDetailsSlice";
 import { getRequest } from "shared/utils/apiRequest";
+import { videoDetailsRelatedActions } from "../relatedSlice";
 
 export function* getVideoResults(
   action: ReturnType<typeof videoSearchActions.request>
@@ -12,6 +13,7 @@ export function* getVideoResults(
   query.append("part", "statistics");
 
   try {
+    yield put(videoDetailsRelatedActions.request(action.payload));
     const data = yield call(getRequest, "videos", query);
 
     if (data.items.length) {

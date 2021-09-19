@@ -1,12 +1,12 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import CardMedia from "@material-ui/core/CardMedia";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import Grid from "@material-ui/core/Grid";
-import CardActionArea from "@material-ui/core/CardActionArea";
+import Grid from "@mui/material/Grid";
+import CardActionArea from "@mui/material/CardActionArea";
 import { useVideoItemStyles } from "./videoItem.styles";
 
 dayjs.extend(relativeTime);
@@ -81,7 +81,7 @@ export const VideoItem: React.FC<VideoItemProps> = ({
               item
               container
               alignItems="flex-end"
-              justify="flex-end"
+              // justify="flex-end"
               className={classes.date}
             >
               {publishedFomrated.isValid() && (
