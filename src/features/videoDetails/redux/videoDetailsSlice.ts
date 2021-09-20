@@ -1,10 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncActions } from "shared/redux/asyncActionGenarator";
 import {
   createLoadingStatusSlice,
   LoadingState,
 } from "shared/redux/createLoadingStatus";
-import { ApiStatus } from "shared/types/api.d";
 import { Video } from "shared/types/videos.d";
 
 export interface VideoDetailsState {

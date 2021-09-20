@@ -6,8 +6,7 @@ import rootSearchSaga from "../features/search/redux/sagas/search";
 import rootVideoSaga from "../features/videoDetails/redux/sagas/video";
 import rootRelatedSaga from "../features/videoDetails/redux/sagas/related";
 import search from "../features/search/redux/search";
-import videoDetails from "features/videoDetails/redux/videoDetailsSlice";
-import relatedVideos from "features/videoDetails/redux/relatedSlice";
+import videoDetails from "features/videoDetails/redux";
 
 export const rootSaga = function* () {
   yield all([rootVideoSaga(), rootSearchSaga(), rootRelatedSaga()]);
@@ -16,7 +15,6 @@ export const rootSaga = function* () {
 export const rootReducer = combineReducers({
   search,
   videoDetails,
-  relatedVideos,
 });
 const sagaMiddleware = createSagaMiddleware();
 

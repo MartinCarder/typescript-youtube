@@ -1,13 +1,13 @@
 import { AppStoreState } from "store/store";
 
 export const getVideoDetailsStatus = (state: AppStoreState) =>
-  state.videoDetails.status;
+  state.videoDetails.video.status;
 
 export const getVideoDetailsId = (state: AppStoreState) =>
-  state.videoDetails.data.videoId;
+  state.videoDetails.video.data.videoId;
 
 export const getVideoDetails = (state: AppStoreState) =>
-  state.videoDetails.data.details;
+  state.videoDetails.video.data.details;
 
 export const getVideoDetailsError = (state: AppStoreState) =>
-  state.videoDetails.data.errorMessage;
+  state.videoDetails.video.data.errorMessage;

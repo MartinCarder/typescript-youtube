@@ -1,4 +1,4 @@
-import { Router } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { createStore, Store, AnyAction, PreloadedState } from "redux";
 import { Provider } from "react-redux";
@@ -10,6 +10,7 @@ import theme from "theme/theme";
 interface customoptions {
   history?: MemoryHistory<unknown>;
   route?: string[];
+  path?: string;
   initalState?: PreloadedState<AppStoreState>;
   store?: Store<AppStoreState, AnyAction>;
 }
@@ -24,6 +25,7 @@ export const render = (
     initalState,
     store = createStore(rootReducer, initalState),
     route = ["/"],
+    path = "/",
     history = createMemoryHistory({ initialEntries: route }),
     ...renderOptions
   }: Omit<RenderOptions, "queries"> & customoptions = {}
@@ -33,7 +35,11 @@ export const render = (
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <Router history={history}>{children}</Router>
+          <Router history={history}>
+            <Switch>
+              <Route path={path}>{children}</Route>
+            </Switch>
+          </Router>
         </ThemeProvider>
       </Provider>
     );

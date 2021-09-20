@@ -27,13 +27,13 @@ describe("videoDetailsSlice", () => {
       videoSearchActions.failed(errorMessage)
     );
 
-    expect(getVideoDetailsStatus({ videoDetails: detailsReducer })).toEqual(
-      ApiStatus.STATUS_ERROR
-    );
+    expect(
+      getVideoDetailsStatus({ videoDetails: { video: detailsReducer } })
+    ).toEqual(ApiStatus.STATUS_ERROR);
 
-    expect(getVideoDetailsError({ videoDetails: detailsReducer })).toEqual(
-      errorMessage
-    );
+    expect(
+      getVideoDetailsError({ videoDetails: { video: detailsReducer } } as any)
+    ).toEqual(errorMessage);
   });
 
   it("onRequestVideo.success sets correct status and adds data to reducer", () => {
@@ -44,7 +44,7 @@ describe("videoDetailsSlice", () => {
     );
 
     const state = {
-      videoDetails: detailsReducer,
+      videoDetails: { video: detailsReducer },
     };
 
     expect(getVideoDetailsId(state)).toEqual(id);
@@ -59,7 +59,7 @@ describe("videoDetailsSlice", () => {
     const detailsReducer = reducer(initState, videoSearchActions.request(id));
 
     const state = {
-      videoDetails: detailsReducer,
+      videoDetails: { video: detailsReducer },
     };
 
     expect(getVideoDetailsId(state)).toEqual(id);

@@ -21,6 +21,12 @@ export const SearchBar: React.FC = () => {
   const search = () => {
     history.push(`/?search=${encodeURIComponent(searchValue)}`);
   };
+
+  const handleKeypress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === "NumpadEnter") {
+      search();
+    }
+  };
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -31,6 +37,7 @@ export const SearchBar: React.FC = () => {
             onChange={(ev) => setSearchValue(ev.target.value)}
             placeholder="Search Youtube"
             aria-label="Search Youtube"
+            onKeyPress={handleKeypress}
           />
           <button onClick={search}>Search</button>
         </div>
